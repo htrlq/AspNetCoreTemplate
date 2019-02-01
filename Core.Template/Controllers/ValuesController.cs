@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Core.Template.Middleware._Exception;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Core.Template.Controllers
@@ -10,36 +11,21 @@ namespace Core.Template.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
-        // GET api/values
-        [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public string Index()
         {
-            return new string[] { "value1", "value2" };
+            return "Hello";
         }
 
-        // GET api/values/5
-        [HttpGet("{id}")]
-        public ActionResult<string> Get(int id)
+        [HttpGet("Exception")]
+        public string Exception()
         {
-            return "value";
+            throw new Exception();
         }
 
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody] string value)
+        [HttpGet("CoreException")]
+        public string CoreException()
         {
-        }
-
-        // PUT api/values/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            throw new CoreException();
         }
     }
 }
