@@ -6,18 +6,30 @@ using Microsoft.AspNetCore.Http;
 
 namespace Core.Template.Middleware._Exception
 {
-    // You may need to install the Microsoft.AspNetCore.Http.Abstractions package into your project
+    /// <summary>
+    /// Exception Middleware
+    /// </summary>
     public class ExceptionMiddleware
     {
         private readonly RequestDelegate _next;
         private readonly IExceptionHandler _exceptionHandler;
 
+        /// <summary>
+        /// Generate
+        /// </summary>
+        /// <param name="next"></param>
+        /// <param name="exceptionHandler"></param>
         public ExceptionMiddleware(RequestDelegate next, IExceptionHandler exceptionHandler)
         {
             _next = next;
             _exceptionHandler = exceptionHandler;
         }
 
+        /// <summary>
+        /// Invoke
+        /// </summary>
+        /// <param name="httpContext"></param>
+        /// <returns></returns>
         public async Task Invoke(HttpContext httpContext)
         {
             try

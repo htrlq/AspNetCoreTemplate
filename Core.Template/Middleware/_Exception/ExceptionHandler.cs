@@ -19,7 +19,7 @@ namespace Core.Template.Middleware._Exception
 
             foreach(var method in methods)
             {
-                var exceptionAttribute = method.GetCustomAttribute<ExceptionMethosAttribute>();
+                var exceptionAttribute = method.GetCustomAttribute<ExceptionMethodAttribute>();
 
                 dictionary.TryAdd(exceptionAttribute.ExceptionType, method);
             }
@@ -27,7 +27,7 @@ namespace Core.Template.Middleware._Exception
 
         private bool ValidateMethod(MethodInfo method)
         {
-            if (method.GetCustomAttribute(typeof(ExceptionMethosAttribute)) != null)
+            if (method.GetCustomAttribute(typeof(ExceptionMethodAttribute)) != null)
             {
                 var paramInfos = method.GetParameters();
 
@@ -52,15 +52,10 @@ namespace Core.Template.Middleware._Exception
                 await context.Response.WriteAsync("Exception Hello");
         }
 
-        [ExceptionMethos(typeof(CoreException))]
+        [ExceptionMethod(typeof(CoreException))]
         public async Task CoreAsync(HttpContext context, Exception exception)
         {
             await context.Response.WriteAsync("Core Exception Hello");
         }
-    }
-
-    internal class CoreException : Exception
-    {
-
     }
 }
